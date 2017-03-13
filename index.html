@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body ng-app="testApp">
+        <ui-view></ui-view>
+        <!-- <div ng-controller="helloController">
+
+        </div> -->
+    </body>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.min.js"></script>
+    <script>
+        angular
+            .module("testApp", ['ui.router'])
+            .config(['$stateProvider', function($stateProvider){
+                $stateProvider.state("mainState", {
+                    url: "/hello",
+                    controller: "helloController",
+                    template: "<h1> hello</h1>",
+                    controllerAs: "helloCtrl",
+                    resolve: {
+                        hello: function($q, $timeout) {
+                            var defer = $q.defer();
+                            $timeout(function () {
+                                console.log("timeout!!!!");
+                                return defer.resolve("looooooool");
+                            }, 10);
+                            return defer.promise;
+                        }
+                    }
+                });
+            }])
+            .controller("helloController", function(hello) {
+                console.log(hello)
+                console.log("dsqdsds");
+            });
+
+
+    </script>
+</html>
